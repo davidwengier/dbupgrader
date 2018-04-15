@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>DbUpgrader.Tests</AssemblyName>
+    <PackageId>DbUpgrader.Tests</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

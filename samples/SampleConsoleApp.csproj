@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>SampleConsoleApp</AssemblyName>
+    <PackageId>SampleConsoleApp</PackageId>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\DbUpgrader.SqlServer\DbUpgrader.SqlServer.csproj" />
+    <ProjectReference Include="..\src\DbUpgrader\DbUpgrader.csproj" />
+  </ItemGroup>
+</Project>
