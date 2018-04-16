@@ -12,6 +12,7 @@ namespace DbUpgrader.Tests
         [Fact]
         public void Test1()
         {
+
         }
     }
 }
