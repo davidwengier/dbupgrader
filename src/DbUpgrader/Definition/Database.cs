@@ -13,9 +13,6 @@ namespace DbUpgrader.Definition
             _tables.AddRange(tables);
         }
 
-        public IEnumerable<ITable> GetTables()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<ITable> GetTables() => _tables;
     }
 }

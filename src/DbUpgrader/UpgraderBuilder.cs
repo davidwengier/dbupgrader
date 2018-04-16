@@ -18,5 +18,11 @@ namespace DbUpgrader
                 DestinationManager = this.DestinationManager
             };
         }
+
+        public UpgraderBuilder To(IDestinationManager destination)
+        {
+            this.DestinationManager = destination;
+            return this;
+        }
     }
 }

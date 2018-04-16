@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using DbUpgrader.Definition;
 
-namespace DbUpgrader.Definition
+namespace DbUpgrader
 {
     public static class DefinitionExtensions
     {
