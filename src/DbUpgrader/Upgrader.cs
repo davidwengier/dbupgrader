@@ -22,6 +22,15 @@ namespace DbUpgrader
                     LogError("Couldn't connect to destination database");
                     return false;
                 }
+                LogInfo("Connected successfully");
+
+                LogInfo("Checking if the database exists");
+                var dbName = this.SourceManager.DatabaseDefinition.GetDatabaseName();
+                if (!this.DestinationManager.DatabaseExists(dbName))
+                {
+                    LogInfo("Database doesn't exist, creating");
+                    this.DestinationManager.CreateDatabase(dbName);
+                }
 
                 foreach (ITable table in this.SourceManager.DatabaseDefinition.GetTables())
                 {

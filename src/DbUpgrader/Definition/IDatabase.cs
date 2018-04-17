@@ -9,6 +9,8 @@ namespace DbUpgrader.Definition
     /// </summary>
     public interface IDatabase
     {
+        string GetDatabaseName();
+
         IEnumerable<ITable> GetTables();
     }
 }

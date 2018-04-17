@@ -9,7 +9,7 @@ namespace DbUpgrader.Tests
         public static void Main()
         {
             string connectionString = @"Server=(localdb)\v11.0;Integrated Security=true;";
-            IDatabase definition = new Database(
+            IDatabase definition = new Database("MyDatabase",
                                     new Table("MyTable",
                                         new Field("MyField", FieldType.String, 50)
                                         )
@@ -22,6 +22,12 @@ namespace DbUpgrader.Tests
                                           .Build();
 
             upgrader.Run();
+
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                Console.WriteLine("Press Enter to continue.");
+                Console.ReadLine();
+            }
         }
     }
 }

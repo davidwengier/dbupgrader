@@ -1,37 +1,35 @@
-﻿using DbUpgrader.Definition;
+﻿using System.Data.Common;
+using System.Data.SqlClient;
+using DbUpgrader.AnsiDatabase;
+using DbUpgrader.Definition;
 
 namespace DbUpgrader
 {
-    internal class SqlServerManager : IDestinationManager
+    internal class SqlServerManager : AnsiDatabaseManager
     {
-        private string _connectionString;
-
         public SqlServerManager(string connectionString)
+            : base(connectionString)
         {
-            _connectionString = connectionString;
         }
 
-        public void CreateField(ITable table, IField field)
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override DbCommand CreateCommand() => new SqlCommand();
 
-        public void CreateTable(ITable table)
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override DbConnection CreateConnection() => new SqlConnection();
 
-        public bool FieldExists(ITable table, IField field)
+        protected override DbParameter CreateParameter(string name, object value) => new SqlParameter(name, value);
+
+        public override void CreateField(ITable table, IField field)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool TableExists(ITable table)
+        public override bool DatabaseExists(string databaseName)
         {
-            throw new System.NotImplementedException();
+            string sql = "SELECT name FROM master.dbo.sysdatabases WHERE('[' + name + ']' = @dbname OR name = @dbname)";
+            return ExecuteScalar(sql, new SqlParameter("@dbname", databaseName)) != null;
         }
 
-        public bool TryDbConnect()
+        public override bool FieldExists(ITable table, IField field)
         {
             throw new System.NotImplementedException();
         }

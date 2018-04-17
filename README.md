@@ -8,7 +8,7 @@ The simplest (at this stage theoretical) example code to run DbUpgrader is:
 
 ```C#
 string connectionString = "...";
-string definition = @"<database>
+string definition = @"<database name=""MyDatabase"">
                           <table name=""MyTable"">
                               <field name=""MyField"" type=""String"" size=""50"" />
                           </table>
@@ -31,7 +31,7 @@ Other options are planned for other scenarios like:
 ```C#
 // Make production schema match testing
 DbUpgrader.Upgrade
-          .FromSqlServer(testingConnectionString)
+          .FromSqlServer(testingConnectionString, "DatabaseName")
           .ToSqlServer(productionConnectionString)
           .Run();
 
@@ -44,7 +44,7 @@ DbUpgrader.Upgrade
 
 // Migrate from one database technology to another
 DbUpgrader.Upgrade
-          .FromMySql(mySqlConnectionString)
+          .FromMySql(mySqlConnectionString, "DatabaseName")
           .ToSqlServer(sqlServerConnectionString)
           .Run();
 ```
