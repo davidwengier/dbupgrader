@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using DbUpgrader.AnsiDatabase;
+using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
 
 namespace DbUpgrader

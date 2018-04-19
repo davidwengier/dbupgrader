@@ -7,7 +7,10 @@
 			"label": "build",
 			"command": "dotnet build",
 			"type": "shell",
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"presentation": {
 				"reveal": "silent"
 			},
@@ -17,7 +20,10 @@
 			"label": "test",
 			"command": "dotnet test tests/DbUpgader.Tests/DbUpgrader.Tests.csproj",
 			"type": "shell",
-			"group": "test",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
 			"presentation": {
 				"reveal": "silent"
 			},

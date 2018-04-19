@@ -10,15 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader", "src\DbUpgrader\DbUpgrader.csproj", "{84EAD502-ED5E-45BC-9BFD-20184EC80485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader", "src\DbUpgrader\DbUpgrader.csproj", "{84EAD502-ED5E-45BC-9BFD-20184EC80485}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleConsoleApp", "samples\SampleConsoleApp.csproj", "{D930A99A-30FE-4658-A647-D7337E7FA3EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleConsoleApp", "samples\SampleConsoleApp.csproj", "{D930A99A-30FE-4658-A647-D7337E7FA3EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.SqlServer", "src\DbUpgrader.SqlServer\DbUpgrader.SqlServer.csproj", "{AA6759AF-A3E8-45A8-92EE-03E8D5C67F4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.SqlServer", "src\DbUpgrader.SqlServer\DbUpgrader.SqlServer.csproj", "{AA6759AF-A3E8-45A8-92EE-03E8D5C67F4C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.Tests", "tests\DbUpgader.Tests\DbUpgrader.Tests.csproj", "{B0C57C52-5BF4-4BB1-AA86-D7E30DACC54D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.Tests", "tests\DbUpgader.Tests\DbUpgrader.Tests.csproj", "{B0C57C52-5BF4-4BB1-AA86-D7E30DACC54D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.AnsiDatabase", "src\DbUpgrader.AnsiDatabase\DbUpgrader.AnsiDatabase.csproj", "{F593DA0C-0A50-455A-AE4F-8285AD1D2C8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.Sqlite", "src\DbUpgrader.Sqlite\DbUpgrader.Sqlite.csproj", "{F2B9AEEA-9961-47A1-9B82-B18D683BF011}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +46,10 @@ Global
 		{F593DA0C-0A50-455A-AE4F-8285AD1D2C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F593DA0C-0A50-455A-AE4F-8285AD1D2C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F593DA0C-0A50-455A-AE4F-8285AD1D2C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B9AEEA-9961-47A1-9B82-B18D683BF011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B9AEEA-9961-47A1-9B82-B18D683BF011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B9AEEA-9961-47A1-9B82-B18D683BF011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B9AEEA-9961-47A1-9B82-B18D683BF011}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Data.Common;
 using DbUpgrader.Definition;
 
-namespace DbUpgrader.AnsiDatabase
+namespace DbUpgrader.DatabaseManagers
 {
-    public abstract class AnsiDatabaseManager : IDestinationManager
+    public abstract class CommonDatabaseManager : IDestinationManager
     {
         private string _connectionString;
 
         protected string ConnectionString => _connectionString;
 
-        protected AnsiDatabaseManager(string connectionString)
+        protected CommonDatabaseManager(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -45,8 +45,11 @@ namespace DbUpgrader.AnsiDatabase
             comm.Connection = conn;
             comm.CommandText = sql;
             comm.CommandType = System.Data.CommandType.Text;
-            comm.Parameters.AddRange(parameters);
-            return comm;
+			foreach (DbParameter parameter in parameters)
+			{
+				comm.Parameters.Add(parameter);
+			}
+			return comm;
         }
 
         public bool TryDbConnect()
@@ -74,23 +77,11 @@ namespace DbUpgrader.AnsiDatabase
 
         public abstract bool DatabaseExists(string databaseName);
 
-        public virtual void CreateDatabase(string databaseName)
-        {
-            string sql = "CREATE DATABASE [" + databaseName + "]";
-            ExecuteNonQuery(sql);
-        }
+		public abstract void CreateDatabase(string databaseName);
 
-        public virtual bool TableExists(ITable table)
-        {
-            string sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName";
-            return ExecuteScalar(sql, CreateParameter("@tableName", table.Name)) != null;
-        }
+		public abstract bool TableExists(ITable table);
 
-        public virtual void CreateTable(ITable table)
-        {
-            string sql = "CREATE TABLE [" + table.Name + "]";
-            ExecuteNonQuery(sql);
-        }
+		public abstract void CreateTable(ITable table);
 
         public abstract bool FieldExists(ITable table, IField field);
 
