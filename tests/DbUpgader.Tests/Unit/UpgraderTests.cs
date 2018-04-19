@@ -13,6 +13,7 @@ namespace DbUpgrader.Tests.Unit
             var upgader = DbUpgrader.Upgrade
                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                     .To(database)
+                    .LogToConsole()
                     .Build();
 
             Assert.True(upgader.Run());
@@ -32,6 +33,7 @@ namespace DbUpgrader.Tests.Unit
             var upgader = DbUpgrader.Upgrade
                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                     .To(database)
+                    .LogToConsole()
                     .Build();
 
             Assert.True(upgader.Run());

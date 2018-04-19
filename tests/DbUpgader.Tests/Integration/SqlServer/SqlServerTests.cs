@@ -13,6 +13,7 @@ namespace DbUpgrader.Tests.Integration
             Upgrader upgrader = DbUpgrader.Upgrade
                                           .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                                           .ToSqlServer(connectionString)
+                                          .LogToConsole()
                                           .Build();
 
             Assert.True(upgrader.Run());
