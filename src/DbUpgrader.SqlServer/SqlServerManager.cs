@@ -2,10 +2,11 @@
 using System.Data.SqlClient;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
+using DbUpgrader.Generators;
 
 namespace DbUpgrader
 {
-    internal class SqlServerManager : AnsiDatabaseManager
+    internal class SqlServerManager : AnsiDatabaseManager, ISqlGenerator
     {
         public SqlServerManager(string connectionString)
             : base(connectionString)
@@ -33,5 +34,27 @@ namespace DbUpgrader
         {
             throw new System.NotImplementedException();
         }
-    }
+
+        public override void CreateTable(ITable table)
+        {
+			string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
+			ExecuteNonQuery(sql);
+        }
+
+        string ISqlGenerator.GetFieldDataType(IField field)
+        {
+            switch (field.Type)
+            {
+                case FieldType.String when field.Size > 0:
+                {
+                    return "VARCHAR(MAX)";
+                }
+                case FieldType.String:
+                {
+                    return "VARCHAR(" + field.Size + ")";
+                }
+            }
+			return null;
+		}
+	}
 }

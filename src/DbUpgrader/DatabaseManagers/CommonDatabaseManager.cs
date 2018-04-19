@@ -4,6 +4,9 @@ using DbUpgrader.Definition;
 
 namespace DbUpgrader.DatabaseManagers
 {
+    /// <summary>
+    /// Provides helpers for database engines with System.Data.Common providers
+    /// </summary>
     public abstract class CommonDatabaseManager : IDestinationManager
     {
         private string _connectionString;

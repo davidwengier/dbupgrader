@@ -1,11 +1,12 @@
 ﻿using System.Data.Common;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
+using DbUpgrader.Generators;
 using Microsoft.Data.Sqlite;
 
 namespace DbUpgrader
 {
-    internal class SqliteManager : CommonDatabaseManager
+    internal class SqliteManager : CommonDatabaseManager, ISqlGenerator
     {
         public SqliteManager(string connectionString)
             : base(connectionString)
@@ -43,8 +44,20 @@ namespace DbUpgrader
 
         public override void CreateTable(ITable table)
         {
-            string sql = "CREATE TABLE [" + table.Name + "]";
+            string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
             ExecuteNonQuery(sql);
+        }
+
+        string ISqlGenerator.GetFieldDataType(IField field)
+        {
+            switch (field.Type)
+            {
+                case FieldType.String:
+                {
+                    return "TEXT";
+                }
+            }
+            return null;
         }
     }
 }
