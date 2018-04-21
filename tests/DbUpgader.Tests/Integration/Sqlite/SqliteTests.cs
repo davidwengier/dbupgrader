@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Xunit;
 
@@ -6,10 +7,16 @@ namespace DbUpgrader.Tests.Integration
 {
     public class SqliteTests
     {
+        private const string TestDatabaseFile = "TestDatabase.db";
+
         [Fact]
         public void EmptyDatabase_TableAndField_Added()
         {
-            string connectionString = @"Data Source=TestDatabase.db";
+            if (File.Exists(TestDatabaseFile))
+            {
+                File.Delete(TestDatabaseFile);
+            }
+            string connectionString = @"Data Source=" + TestDatabaseFile;
             Upgrader upgrader = DbUpgrader.Upgrade
                                           .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                                           .ToSqlite(connectionString)

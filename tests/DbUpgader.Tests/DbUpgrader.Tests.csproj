@@ -3,8 +3,8 @@
     <!-- <Message Text="Building for $(TargetFramework) on $(OS)" /> -->
   </Target>
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(OS)' == 'Unix'">netcoreapp2.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(OS)' != 'Unix'">net46;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>DbUpgrader.Tests</AssemblyName>
     <PackageId>DbUpgrader.Tests</PackageId>

@@ -53,11 +53,17 @@ dotnet_naming_symbols.public_symbols.applicable_kinds           = property,metho
 dotnet_naming_symbols.public_symbols.applicable_accessibilities = public
 dotnet_naming_style.pascal_style.capitalization = pascal_case
 
+# consts must be pascal case
+dotnet_naming_rule.constant_fields_should_be_upper_case.severity = error
+dotnet_naming_rule.constant_fields_should_be_upper_case.symbols  = constant_fields
+dotnet_naming_rule.constant_fields_should_be_upper_case.style    = pascal_style
+dotnet_naming_symbols.constant_fields.applicable_kinds   = field
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
 # private fields should be camelCase with an underscore
 dotnet_naming_rule.private_fields_must_be_underscore_camel.severity = error
 dotnet_naming_rule.private_fields_must_be_underscore_camel.symbols   = private_fields
 dotnet_naming_rule.private_fields_must_be_underscore_camel.style    = camel_with_underscore
-dotnet_naming_symbols.private_fields.applicable_kinds           = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 dotnet_naming_style.camel_with_underscore.capitalization = camel_case
 dotnet_naming_style.camel_with_underscore.required_prefix = _
