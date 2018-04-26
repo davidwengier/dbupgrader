@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Linq;
 using Xunit;
 
 namespace DbUpgrader.Tests.Integration
 {
-    public class SqlServerTests
+    public class SqlServerTests : IDisposable
     {
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         [Fact]
         public void EmptyDatabase_TableAndField_Added()
         {
-            string connectionString = @"Server=(localdb)\v11.0;Integrated Security=true;";
+            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;";
             Upgrader upgrader = DbUpgrader.Upgrade
                                           .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                                           .ToSqlServer(connectionString)

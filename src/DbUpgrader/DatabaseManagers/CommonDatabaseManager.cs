@@ -48,11 +48,11 @@ namespace DbUpgrader.DatabaseManagers
             comm.Connection = conn;
             comm.CommandText = sql;
             comm.CommandType = System.Data.CommandType.Text;
-			foreach (DbParameter parameter in parameters)
-			{
-				comm.Parameters.Add(parameter);
-			}
-			return comm;
+            foreach (DbParameter parameter in parameters)
+            {
+                comm.Parameters.Add(parameter);
+            }
+            return comm;
         }
 
         public bool TryDbConnect()
@@ -80,11 +80,11 @@ namespace DbUpgrader.DatabaseManagers
 
         public abstract bool DatabaseExists(string databaseName);
 
-		public abstract void CreateDatabase(string databaseName);
+        public abstract void CreateDatabase(string databaseName);
 
-		public abstract bool TableExists(ITable table);
+        public abstract bool TableExists(ITable table);
 
-		public abstract void CreateTable(ITable table);
+        public abstract void CreateTable(ITable table);
 
         public abstract bool FieldExists(ITable table, IField field);
 

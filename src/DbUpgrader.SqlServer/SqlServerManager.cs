@@ -37,8 +37,8 @@ namespace DbUpgrader
 
         public override void CreateTable(ITable table)
         {
-			string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
-			ExecuteNonQuery(sql);
+            string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
+            ExecuteNonQuery(sql);
         }
 
         string ISqlGenerator.GetFieldDataType(IField field)
@@ -54,7 +54,7 @@ namespace DbUpgrader
                     return "VARCHAR(" + field.Size + ")";
                 }
             }
-			return null;
-		}
-	}
+            return null;
+        }
+    }
 }

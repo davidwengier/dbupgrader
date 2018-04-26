@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Common;
-using System.Text;
 using DbUpgrader.Definition;
 
 namespace DbUpgrader.DatabaseManagers
@@ -26,6 +24,5 @@ namespace DbUpgrader.DatabaseManagers
             string sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName";
             return ExecuteScalar(sql, CreateParameter("@tableName", table.Name)) != null;
         }
-
     }
 }
