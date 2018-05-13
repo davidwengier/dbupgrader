@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using DbUpgrader.Definition;
 
 namespace DbUpgrader.DatabaseManagers
@@ -8,8 +9,8 @@ namespace DbUpgrader.DatabaseManagers
     /// </summary>
     public abstract class AnsiDatabaseManager : CommonDatabaseManager
     {
-        protected AnsiDatabaseManager(string connectionString)
-            : base(connectionString)
+        protected AnsiDatabaseManager(string connectionString, DbProviderFactory factory)
+            : base(connectionString, factory)
         {
         }
 
@@ -21,7 +22,7 @@ namespace DbUpgrader.DatabaseManagers
 
         public override bool TableExists(ITable table)
         {
-            string sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName";
+            const string sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName";
             return ExecuteScalar(sql, CreateParameter("@tableName", table.Name)) != null;
         }
     }

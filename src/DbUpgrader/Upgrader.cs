@@ -32,7 +32,9 @@ namespace DbUpgrader
                     this.DestinationManager.CreateDatabase(dbName);
                 }
 
-                foreach (ITable table in this.SourceManager.DatabaseDefinition.GetTables())
+                this.DestinationManager.SetDatabaseName(dbName);
+
+                foreach (var table in this.SourceManager.DatabaseDefinition.GetTables())
                 {
                     UpgradeTable(table);
                 }
@@ -56,7 +58,7 @@ namespace DbUpgrader
             }
             else
             {
-                foreach (IField field in table.GetFields())
+                foreach (var field in table.GetFields())
                 {
                     UpgradeField(table, field);
                 }

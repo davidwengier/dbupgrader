@@ -9,12 +9,12 @@ namespace DbUpgrader.Tests.Unit
         [Fact]
         public void EmptyDatabase_TableAndField_Added()
         {
-            InMemoryDatabase database = new InMemoryDatabase();
+            var database = new InMemoryDatabase();
             var upgader = DbUpgrader.Upgrade
-                    .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
-                    .To(database)
-                    .LogToConsole()
-                    .Build();
+                                    .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
+                                    .To(database)
+                                    .LogToConsole()
+                                    .Build();
 
             Assert.True(upgader.Run());
 
@@ -27,14 +27,14 @@ namespace DbUpgrader.Tests.Unit
         [Fact]
         public void EmptyDatabase_TableAndField_NotAdded()
         {
-            InMemoryDatabase database = new InMemoryDatabase();
+            var database = new InMemoryDatabase();
             database.CreateTable(TestData.CreateSimpleDatabaseDefinition().GetTables().First());
             database.DenyChanges = true;
             var upgader = DbUpgrader.Upgrade
-                    .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
-                    .To(database)
-                    .LogToConsole()
-                    .Build();
+                                    .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
+                                    .To(database)
+                                    .LogToConsole()
+                                    .Build();
 
             Assert.True(upgader.Run());
         }

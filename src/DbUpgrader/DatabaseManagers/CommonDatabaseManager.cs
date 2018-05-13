@@ -9,20 +9,24 @@ namespace DbUpgrader.DatabaseManagers
     /// </summary>
     public abstract class CommonDatabaseManager : IDestinationManager
     {
-        private string _connectionString;
+        private DbProviderFactory _factory;
 
-        protected string ConnectionString => _connectionString;
+        protected DbProviderFactory Factory => _factory;
 
-        protected CommonDatabaseManager(string connectionString)
+        protected string ConnectionString { get; set; }
+
+        protected CommonDatabaseManager(string connectionString, DbProviderFactory factory)
         {
-            _connectionString = connectionString;
+            this.ConnectionString = connectionString;
+            _factory = factory;
         }
 
-        protected abstract DbConnection CreateConnection();
-
-        protected abstract DbCommand CreateCommand();
-
-        protected abstract DbParameter CreateParameter(string name, object value);
+        protected DbParameter CreateParameter(string name, object value)
+        {
+            DbParameter parameter = this.Factory.CreateParameter();
+            parameter.ParameterName = name;
+            parameter.Value = value;
+            return parameter;        }
 
         protected int ExecuteNonQuery(string sql, params DbParameter[] parameters)
         {
@@ -44,7 +48,7 @@ namespace DbUpgrader.DatabaseManagers
 
         private DbCommand InitializeCommand(DbConnection conn, string sql, DbParameter[] parameters)
         {
-            var comm = CreateCommand();
+            var comm = _factory.CreateCommand();
             comm.Connection = conn;
             comm.CommandText = sql;
             comm.CommandType = System.Data.CommandType.Text;
@@ -72,11 +76,13 @@ namespace DbUpgrader.DatabaseManagers
 
         private DbConnection OpenConnection()
         {
-            var conn = CreateConnection();
-            conn.ConnectionString = _connectionString;
+            var conn = _factory.CreateConnection();
+            conn.ConnectionString = this.ConnectionString;
             conn.Open();
             return conn;
         }
+
+        public abstract void SetDatabaseName(string databaseName);
 
         public abstract bool DatabaseExists(string databaseName);
 

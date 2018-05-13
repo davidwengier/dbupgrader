@@ -13,6 +13,11 @@ namespace DbUpgrader.Tests
 
         public bool DenyChanges { get; internal set; }
 
+        public void SetDatabaseName(string dbName)
+        {
+            // nop
+        }
+
         public void CreateDatabase(string databaseName)
         {
             // nop

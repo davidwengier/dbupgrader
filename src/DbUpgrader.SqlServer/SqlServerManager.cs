@@ -3,21 +3,27 @@ using System.Data.SqlClient;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
+using DbUpgrader.SqlServer;
 
 namespace DbUpgrader
 {
-    internal class SqlServerManager : AnsiDatabaseManager, ISqlGenerator
+    internal class SqlServerManager : AnsiDatabaseManager
     {
+        private readonly SqlServerSqlGenerator _generator = new SqlServerSqlGenerator();
+
         public SqlServerManager(string connectionString)
-            : base(connectionString)
+            : base(connectionString, SqlClientFactory.Instance)
         {
         }
 
-        protected override DbCommand CreateCommand() => new SqlCommand();
-
-        protected override DbConnection CreateConnection() => new SqlConnection();
-
-        protected override DbParameter CreateParameter(string name, object value) => new SqlParameter(name, value);
+        public override void SetDatabaseName(string databaseName)
+        {
+            var builder = new SqlConnectionStringBuilder(this.ConnectionString)
+            {
+                InitialCatalog = databaseName
+            };
+            this.ConnectionString = builder.ConnectionString;
+        }
 
         public override void CreateField(ITable table, IField field)
         {
@@ -26,7 +32,7 @@ namespace DbUpgrader
 
         public override bool DatabaseExists(string databaseName)
         {
-            string sql = "SELECT name FROM master.dbo.sysdatabases WHERE('[' + name + ']' = @dbname OR name = @dbname)";
+            var sql = "SELECT name FROM master.dbo.sysdatabases WHERE('[' + name + ']' = @dbname OR name = @dbname)";
             return ExecuteScalar(sql, new SqlParameter("@dbname", databaseName)) != null;
         }
 
@@ -37,24 +43,8 @@ namespace DbUpgrader
 
         public override void CreateTable(ITable table)
         {
-            string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
+            var sql = SqlGenerator.GenerateCreateTableStatement(_generator, table);
             ExecuteNonQuery(sql);
-        }
-
-        string ISqlGenerator.GetFieldDataType(IField field)
-        {
-            switch (field.Type)
-            {
-                case FieldType.String when field.Size > 0:
-                {
-                    return "VARCHAR(MAX)";
-                }
-                case FieldType.String:
-                {
-                    return "VARCHAR(" + field.Size + ")";
-                }
-            }
-            return null;
         }
     }
 }

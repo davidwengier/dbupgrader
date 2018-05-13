@@ -10,6 +10,8 @@ namespace DbUpgrader
 
         void CreateDatabase(string databaseName);
 
+        void SetDatabaseName(string dbName);
+
         bool TableExists(ITable table);
 
         void CreateTable(ITable table);

@@ -3,21 +3,23 @@ using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
 using Microsoft.Data.Sqlite;
+using DbUpgrader.Sqlite;
 
 namespace DbUpgrader
 {
-    internal class SqliteManager : CommonDatabaseManager, ISqlGenerator
+    internal class SqliteManager : CommonDatabaseManager
     {
+        private readonly SqliteSqlGenetator _generator = new SqliteSqlGenetator();
+
         public SqliteManager(string connectionString)
-            : base(connectionString)
+            : base(connectionString, SqliteFactory.Instance)
         {
         }
 
-        protected override DbCommand CreateCommand() => new SqliteCommand();
-
-        protected override DbConnection CreateConnection() => new SqliteConnection();
-
-        protected override DbParameter CreateParameter(string name, object value) => new SqliteParameter(name, value);
+        public override void SetDatabaseName(string databaseName)
+        {
+            // No need, SQLite is only one db per file
+        }
 
         public override void CreateField(ITable table, IField field)
         {
@@ -38,26 +40,14 @@ namespace DbUpgrader
 
         public override bool TableExists(ITable table)
         {
-            string sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = @tableName";
+            var sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = @tableName";
             return ExecuteScalar(sql, CreateParameter("@tableName", table.Name)) != null;
         }
 
         public override void CreateTable(ITable table)
         {
-            string sql = SqlGenerator.GenerateCreateTableStatement(this, table);
+            var sql = SqlGenerator.GenerateCreateTableStatement(_generator, table);
             ExecuteNonQuery(sql);
-        }
-
-        string ISqlGenerator.GetFieldDataType(IField field)
-        {
-            switch (field.Type)
-            {
-                case FieldType.String:
-                {
-                    return "TEXT";
-                }
-            }
-            return null;
         }
     }
 }

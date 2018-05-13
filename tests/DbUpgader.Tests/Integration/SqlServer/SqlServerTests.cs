@@ -7,22 +7,22 @@ namespace DbUpgrader.Tests.Integration
     {
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         [Fact]
         public void EmptyDatabase_TableAndField_Added()
         {
-            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;";
-            Upgrader upgrader = DbUpgrader.Upgrade
-                                          .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
-                                          .ToSqlServer(connectionString)
-                                          .LogToConsole()
-                                          .Build();
+            var connectionString = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;";
+            var upgrader = DbUpgrader.Upgrade
+                                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
+                                     .ToSqlServer(connectionString)
+                                     .LogToConsole()
+                                     .Build();
 
             Assert.True(upgrader.Run());
 
-            SqlAssert.TableExists(connectionString, "MyTable");
+            SqlAssert.TableExists(connectionString, "MyDatabase", "MyTable");
         }
     }
 }
