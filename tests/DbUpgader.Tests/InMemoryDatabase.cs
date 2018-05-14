@@ -51,5 +51,20 @@ namespace DbUpgrader.Tests
         public bool TableExists(ITable table) => _tables.ContainsKey(table.Name);
 
         public bool TryDbConnect() => true;
+
+        public IField GetFieldInfo(string tableName, string fieldName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AlterField(ITable table, IField field)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FieldType GetFieldTypeFromSourceType(string sourceType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

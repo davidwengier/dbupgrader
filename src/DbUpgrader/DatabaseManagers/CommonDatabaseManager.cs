@@ -23,15 +23,16 @@ namespace DbUpgrader.DatabaseManagers
 
         protected DbParameter CreateParameter(string name, object value)
         {
-            DbParameter parameter = this.Factory.CreateParameter();
+            var parameter = this.Factory.CreateParameter();
             parameter.ParameterName = name;
             parameter.Value = value;
-            return parameter;        }
+            return parameter;
+        }
 
         protected int ExecuteNonQuery(string sql, params DbParameter[] parameters)
         {
-            using (DbConnection conn = OpenConnection())
-            using (DbCommand comm = InitializeCommand(conn, sql, parameters))
+            using (var conn = OpenConnection())
+            using (var comm = InitializeCommand(conn, sql, parameters))
             {
                 return comm.ExecuteNonQuery();
             }
@@ -39,11 +40,18 @@ namespace DbUpgrader.DatabaseManagers
 
         protected object ExecuteScalar(string sql, params DbParameter[] parameters)
         {
-            using (DbConnection conn = OpenConnection())
-            using (DbCommand comm = InitializeCommand(conn, sql, parameters))
+            using (var conn = OpenConnection())
+            using (var comm = InitializeCommand(conn, sql, parameters))
             {
                 return comm.ExecuteScalar();
             }
+        }
+
+        protected DbDataReader ExecuteReader(string sql, params DbParameter[] parameters)
+        {
+            var conn = OpenConnection();
+            var comm = InitializeCommand(conn, sql, parameters);
+            return comm.ExecuteReader();
         }
 
         private DbCommand InitializeCommand(DbConnection conn, string sql, DbParameter[] parameters)
@@ -52,7 +60,7 @@ namespace DbUpgrader.DatabaseManagers
             comm.Connection = conn;
             comm.CommandText = sql;
             comm.CommandType = System.Data.CommandType.Text;
-            foreach (DbParameter parameter in parameters)
+            foreach (var parameter in parameters)
             {
                 comm.Parameters.Add(parameter);
             }
@@ -63,7 +71,7 @@ namespace DbUpgrader.DatabaseManagers
         {
             try
             {
-                using (DbConnection conn = OpenConnection())
+                using (var conn = OpenConnection())
                 {
                 }
                 return true;
@@ -95,5 +103,11 @@ namespace DbUpgrader.DatabaseManagers
         public abstract bool FieldExists(ITable table, IField field);
 
         public abstract void CreateField(ITable table, IField field);
+
+        public abstract IField GetFieldInfo(string tableName, string fieldName);
+
+        public abstract void AlterField(ITable table, IField field);
+
+        public abstract FieldType GetFieldTypeFromSourceType(string sourceType);
     }
 }

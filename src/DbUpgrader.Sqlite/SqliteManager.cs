@@ -49,5 +49,20 @@ namespace DbUpgrader
             var sql = SqlGenerator.GenerateCreateTableStatement(_generator, table);
             ExecuteNonQuery(sql);
         }
+
+        public override FieldType GetFieldTypeFromSourceType(string sourceType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override IField GetFieldInfo(string tableName, string fieldName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void AlterField(ITable table, IField field)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

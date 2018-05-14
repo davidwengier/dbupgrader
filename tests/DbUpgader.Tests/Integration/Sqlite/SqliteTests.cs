@@ -7,7 +7,7 @@ namespace DbUpgrader.Tests.Integration
 {
     public class SqliteTests
     {
-        private ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output;
 
         private const string TestDatabaseFile = "TestDatabase.db";
 

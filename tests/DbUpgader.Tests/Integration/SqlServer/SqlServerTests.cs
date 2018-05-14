@@ -6,16 +6,18 @@ namespace DbUpgrader.Tests.Integration
 {
     public class SqlServerTests : IDisposable
     {
-        private ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output;
 
-        public void Dispose()
-        {
-            //throw new NotImplementedException();
-        }
+
 
         public SqlServerTests(ITestOutputHelper output)
         {
             _output = output;
+        }
+
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
         }
 
         [Fact]

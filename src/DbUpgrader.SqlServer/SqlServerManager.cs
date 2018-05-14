@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Data.SqlClient;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
@@ -36,15 +37,24 @@ namespace DbUpgrader
             return ExecuteScalar(sql, new SqlParameter("@dbname", databaseName)) != null;
         }
 
-        public override bool FieldExists(ITable table, IField field)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override void CreateTable(ITable table)
         {
             var sql = SqlGenerator.GenerateCreateTableStatement(_generator, table);
             ExecuteNonQuery(sql);
+        }
+
+        public override FieldType GetFieldTypeFromSourceType(string sourceType)
+        {
+            if (sourceType.Equals("varchar", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.String;
+            }
+            return default;
+        }
+
+        public override void AlterField(ITable table, IField field)
+        {
+            throw new NotImplementedException();
         }
     }
 }

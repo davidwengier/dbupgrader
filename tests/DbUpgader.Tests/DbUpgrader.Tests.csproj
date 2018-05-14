@@ -27,4 +27,10 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
     <DefaultItemExcludes>$(DefaultItemExcludes);Integration\Sqlite\**\*</DefaultItemExcludes>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
 </Project>

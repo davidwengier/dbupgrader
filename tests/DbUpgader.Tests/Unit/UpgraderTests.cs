@@ -7,7 +7,7 @@ namespace DbUpgrader.Tests.Unit
 {
     public class UpgraderTests
     {
-        private ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output;
 
         public UpgraderTests(ITestOutputHelper output)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DbUpgrader.Definition;
 using DbUpgrader.Logging;
 
@@ -32,6 +33,7 @@ namespace DbUpgrader
                     this.DestinationManager.CreateDatabase(dbName);
                 }
 
+                LogInfo("Setting database name");
                 this.DestinationManager.SetDatabaseName(dbName);
 
                 foreach (var table in this.SourceManager.DatabaseDefinition.GetTables())
@@ -52,12 +54,15 @@ namespace DbUpgrader
 
         private void UpgradeTable(ITable table)
         {
+            LogInfo("Upgrading table " + table.Name + ". Checking if it exists");
             if (!this.DestinationManager.TableExists(table))
             {
+                LogInfo("Table doesn't exist, creating");
                 this.DestinationManager.CreateTable(table);
             }
             else
             {
+                LogInfo("Table exists, checking fields");
                 foreach (var field in table.GetFields())
                 {
                     UpgradeField(table, field);
@@ -67,9 +72,35 @@ namespace DbUpgrader
 
         private void UpgradeField(ITable table, IField field)
         {
+            LogInfo("Upgrading field " + field.Name + " in " + table.Name + ". Checking if it exists");
             if (!this.DestinationManager.FieldExists(table, field))
             {
+                LogInfo("Field doesn't exist, creating");
                 this.DestinationManager.CreateField(table, field);
+            }
+            else
+            {
+                LogInfo("Field exists, checking properties");
+                UpdateFieldProperties(table, field);
+            }
+        }
+
+        private void UpdateFieldProperties(ITable table, IField field)
+        {
+            var info = this.DestinationManager.GetFieldInfo(table.Name, field.Name);
+            var reasons = new List<string>();
+            if (info.Size != field.Size)
+            {
+                reasons.Add("Size changed from " + info.Size + " to " + field.Size);
+            }
+            if (info.Type != field.Type)
+            {
+                reasons.Add("Type changed from " + info.Type + " to " + field.Type);
+            }
+            if (reasons.Count > 0)
+            {
+                LogInfo("Field needs changing: " + string.Join(", ", reasons));
+                this.DestinationManager.AlterField(table, field);
             }
         }
 
