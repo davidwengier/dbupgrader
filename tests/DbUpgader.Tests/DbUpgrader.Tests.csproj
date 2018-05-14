@@ -17,6 +17,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj" />
     <ProjectReference Include="..\..\src\DbUpgrader.SqlServer\DbUpgrader.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\DbUpgrader\DbUpgrader.csproj" />
   </ItemGroup>

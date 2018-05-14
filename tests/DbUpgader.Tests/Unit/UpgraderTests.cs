@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.Unit
 {
     public class UpgraderTests
     {
+        private ITestOutputHelper _output;
+
+        public UpgraderTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
         [Fact]
         public void EmptyDatabase_TableAndField_Added()
         {
@@ -13,7 +21,7 @@ namespace DbUpgrader.Tests.Unit
             var upgader = DbUpgrader.Upgrade
                                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                                     .To(database)
-                                    .LogToConsole()
+                                    .LogToXunit(_output)
                                     .Build();
 
             Assert.True(upgader.Run());
@@ -33,7 +41,7 @@ namespace DbUpgrader.Tests.Unit
             var upgader = DbUpgrader.Upgrade
                                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
                                     .To(database)
-                                    .LogToConsole()
+                                    .LogToXunit(_output)
                                     .Build();
 
             Assert.True(upgader.Run());
