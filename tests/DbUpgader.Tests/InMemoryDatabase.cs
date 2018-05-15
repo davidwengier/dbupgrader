@@ -45,7 +45,7 @@ namespace DbUpgrader.Tests
 
         public bool FieldExists(ITable table, IField field)
         {
-            return _tables[table.Name].Fields.Any(f => f.Name.Equals(field.Name, StringComparison.Ordinal));
+            return _tables[table.Name].GetFields().Any(f => f.Name.Equals(field.Name, StringComparison.Ordinal));
         }
 
         public bool TableExists(ITable table) => _tables.ContainsKey(table.Name);
@@ -54,17 +54,18 @@ namespace DbUpgrader.Tests
 
         public IField GetFieldInfo(string tableName, string fieldName)
         {
-            throw new NotImplementedException();
+            return _tables[tableName].GetFields().FirstOrDefault(f => f.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
         }
 
         public void AlterField(ITable table, IField field)
         {
-            throw new NotImplementedException();
+            _tables[table.Name].RemoveField(GetFieldInfo(table.Name, field.Name));
+            _tables[table.Name].AddField(field);
         }
 
         public FieldType GetFieldTypeFromSourceType(string sourceType)
         {
-            throw new NotImplementedException();
+            return (FieldType)Enum.Parse(typeof(FieldType), sourceType, true);
         }
     }
 }

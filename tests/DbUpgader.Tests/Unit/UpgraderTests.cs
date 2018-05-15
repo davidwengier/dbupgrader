@@ -28,8 +28,8 @@ namespace DbUpgrader.Tests.Unit
 
             Assert.Single(database.Tables);
             Assert.Equal("MyTable", database.Tables[0].Name);
-            Assert.Single(database.Tables[0].Fields);
-            Assert.Equal("MyField", database.Tables[0].Fields[0].Name);
+            Assert.Single(database.Tables[0].GetFields());
+            Assert.Equal("MyField", database.Tables[0].GetFields().First().Name);
         }
 
         [Fact]

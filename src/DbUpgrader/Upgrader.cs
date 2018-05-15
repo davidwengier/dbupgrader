@@ -97,6 +97,10 @@ namespace DbUpgrader
             {
                 reasons.Add("Type changed from " + info.Type + " to " + field.Type);
             }
+            if (info.AllowNulls != field.AllowNulls)
+            {
+                reasons.Add("AllowNulls changed from " + info.AllowNulls + " to " + field.AllowNulls);
+            }
             if (reasons.Count > 0)
             {
                 LogInfo("Field needs changing: " + string.Join(", ", reasons));

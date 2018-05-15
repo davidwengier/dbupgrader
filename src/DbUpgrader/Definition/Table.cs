@@ -14,10 +14,14 @@ namespace DbUpgrader.Definition
         }
 
         public string Name { get; }
-        public IField[] Fields => _fields.ToArray();
-
+            
         public void AddField(IField field) => _fields.Add(field);
 
         public IEnumerable<IField> GetFields() => _fields;
+
+        public void RemoveField(IField field)
+        {
+            _fields.Remove(field);
+        }
     }
 }

@@ -54,7 +54,8 @@ namespace DbUpgrader
 
         public override void AlterField(ITable table, IField field)
         {
-            throw new NotImplementedException();
+            var sql = SqlGenerator.GenerateAlterFieldStatement(_generator, table, field);
+            ExecuteNonQuery(sql);
         }
     }
 }

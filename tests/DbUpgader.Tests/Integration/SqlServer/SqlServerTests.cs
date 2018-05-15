@@ -1,38 +1,68 @@
 ﻿using System;
+using System.Linq;
+using DbUpgrader.Definition;
+using DbUpgrader.Tests.Integration.SqlServer;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.Integration
 {
-    public class SqlServerTests : IDisposable
+    public class SqlServerTests
     {
         private readonly ITestOutputHelper _output;
 
-
+        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;";
 
         public SqlServerTests(ITestOutputHelper output)
         {
             _output = output;
         }
 
-        public void Dispose()
+        [Fact]
+        public void NoDatabase_TableAndField_Created()
         {
-            //throw new NotImplementedException();
+            using (new TempSqlDatabase(ConnectionString, "MyDatabase"))
+            {
+                var upgrader = DbUpgrader.Upgrade
+                                         .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
+                                         .ToSqlServer(ConnectionString)
+                                         .LogToXunit(_output)
+                                         .Build();
+
+                Assert.True(upgrader.Run());
+
+                SqlAssert.TableExists(ConnectionString, "MyDatabase", "MyTable");
+                SqlAssert.FieldExists(ConnectionString, "MyDatabase", "MyTable", "MyField");
+                SqlAssert.FieldSizeEquals(20, ConnectionString, "MyDatabase", "MyTable", "MyField");
+            }
         }
 
         [Fact]
-        public void EmptyDatabase_TableAndField_Added()
+        public void ExistingDatabase_FieldSizeChanged_Changed()
         {
-            var connectionString = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;";
-            var upgrader = DbUpgrader.Upgrade
-                                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
-                                     .ToSqlServer(connectionString)
-                                     .LogToXunit(_output)
-                                     .Build();
+            using (new TempSqlDatabase(ConnectionString, "MyDatabase"))
+            {
+                var definition = TestData.CreateSimpleDatabaseDefinition();
+                var upgrader = DbUpgrader.Upgrade
+                                         .FromDefinition(definition)
+                                         .ToSqlServer(ConnectionString)
+                                         .LogToXunit(_output)
+                                         .Build();
 
-            Assert.True(upgrader.Run());
+                Assert.True(upgrader.Run());
 
-            SqlAssert.TableExists(connectionString, "MyDatabase", "MyTable");
+                SqlAssert.TableExists(ConnectionString, "MyDatabase", "MyTable");
+                SqlAssert.FieldExists(ConnectionString, "MyDatabase", "MyTable", "MyField");
+                SqlAssert.FieldSizeEquals(20, ConnectionString, "MyDatabase", "MyTable", "MyField");
+
+                ((Field)definition.GetTables().First().GetFields().First()).Size = 50;
+
+                Assert.True(upgrader.Run());
+
+                SqlAssert.TableExists(ConnectionString, "MyDatabase", "MyTable");
+                SqlAssert.FieldExists(ConnectionString, "MyDatabase", "MyTable", "MyField");
+                SqlAssert.FieldSizeEquals(50, ConnectionString, "MyDatabase", "MyTable", "MyField");
+            }
         }
     }
 }

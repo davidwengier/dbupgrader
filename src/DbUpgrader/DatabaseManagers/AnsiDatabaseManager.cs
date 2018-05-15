@@ -36,13 +36,15 @@ namespace DbUpgrader.DatabaseManagers
         public override IField GetFieldInfo(string tableName, string fieldName)
         {
             const string sql = "SELECT DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
-            using (var reader = ExecuteReader(sql, CreateParameter("@tableName", tableName),
-                                      CreateParameter("@fieldName", fieldName)))
+            using (var reader = ExecuteReader(sql, CreateParameter("@tableName", tableName), CreateParameter("@fieldName", fieldName)))
             {
-                return new Field(fieldName, GetFieldTypeFromSourceType(reader.GetString(reader.GetOrdinal("DATA_TYPE"))),
-                    reader.GetInt32(reader.GetOrdinal("CHARACTER_MAXIMUM_LENGTH")));
+                if (reader.Read())
+                {
+                    return new Field(fieldName, GetFieldTypeFromSourceType(reader.GetString(reader.GetOrdinal("DATA_TYPE"))),
+                        reader.GetInt32(reader.GetOrdinal("CHARACTER_MAXIMUM_LENGTH")));
+                }
             }
+            return null;
         }
-
     }
 }

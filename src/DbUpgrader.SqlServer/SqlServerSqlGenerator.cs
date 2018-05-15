@@ -9,7 +9,7 @@ namespace DbUpgrader.SqlServer
         {
             switch (field.Type)
             {
-                case FieldType.String when field.Size > 0:
+                case FieldType.String when field.Size <= 0:
                 {
                     return "VARCHAR(MAX)";
                 }

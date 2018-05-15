@@ -5,5 +5,6 @@
         string Name { get; }
         FieldType Type { get; }
         int Size { get; }
+        bool AllowNulls { get; }
     }
 }
