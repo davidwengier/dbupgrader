@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbUpgrader.Tests.Integration.SqlServer
 {
@@ -12,13 +9,14 @@ namespace DbUpgrader.Tests.Integration.SqlServer
         private string _connectionString;
         private string _databaseName;
 
-        public TempSqlDatabase(string connectionString, string v)
+        public TempSqlDatabase(string connectionString, string databaseName)
         {
             _connectionString = connectionString;
-            _databaseName = v;
+            _databaseName = databaseName;
         }
 
 #pragma warning disable CA1063 // Implement IDisposable Correctly
+
         public void Dispose()
         {
             using (var conn = new SqlConnection(_connectionString))
@@ -30,9 +28,9 @@ namespace DbUpgrader.Tests.Integration.SqlServer
                 comm.ExecuteNonQuery();
                 comm.CommandText = "DROP DATABASE [" + _databaseName + "]";
                 comm.ExecuteNonQuery();
-
             }
         }
+
 #pragma warning restore CA1063 // Implement IDisposable Correctly
     }
 }

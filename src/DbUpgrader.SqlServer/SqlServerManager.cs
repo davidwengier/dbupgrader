@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Common;
 using System.Data.SqlClient;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
@@ -28,7 +27,8 @@ namespace DbUpgrader
 
         public override void CreateField(ITable table, IField field)
         {
-            throw new System.NotImplementedException();
+            var sql = SqlGenerator.GenerateCreateFieldStatement(_generator, table, field);
+            ExecuteNonQuery(sql);
         }
 
         public override bool DatabaseExists(string databaseName)

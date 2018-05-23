@@ -23,11 +23,22 @@ namespace DbUpgrader.Generators
             return sb.ToString();
         }
 
+        public static string GenerateCreateFieldStatement(ISqlGenerator generator, ITable table, IField field)
+        {
+            return GenerateAlterTableAndFieldStatement(generator, table, field, "ADD");
+        }
+
         public static string GenerateAlterFieldStatement(ISqlGenerator generator, ITable table, IField field)
+        {
+            return GenerateAlterTableAndFieldStatement(generator, table, field, "ALTER COLUMN");
+        }
+
+        private static string GenerateAlterTableAndFieldStatement(ISqlGenerator generator, ITable table, IField field, string operation)
         {
             var sb = new StringBuilder();
             sb.Append("ALTER TABLE [" + table.Name + "] ");
-            sb.Append("ALTER COLUMN ");
+            sb.Append(operation);
+            sb.Append(' ');
             sb.Append(GenerateFieldProperties(generator, field));
             return sb.ToString();
         }
