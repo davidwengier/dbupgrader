@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DbUpgrader\DbUpgrader.csproj" />
+    <ProjectReference Include="..\DbUpgrader\DbUpgrader.csproj" />
   </ItemGroup>
 
 </Project>

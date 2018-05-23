@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.Tests", "tests\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.Sqlite", "src\DbUpgrader.Sqlite\DbUpgrader.Sqlite.csproj", "{F2B9AEEA-9961-47A1-9B82-B18D683BF011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.XunitHelpers", "DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj", "{C755EC73-7B96-4183-A887-51386C7BB4E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.XunitHelpers", "src\DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj", "{C755EC73-7B96-4183-A887-51386C7BB4E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
