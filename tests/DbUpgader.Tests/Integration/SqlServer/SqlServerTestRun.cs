@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace DbUpgrader.Tests.Integration.SqlServer
 {
-    internal class TempSqlDatabase : IDisposable
+    internal class SqlServerTestRun : IDisposable
     {
         private string _connectionString;
         private string _databaseName;
 
-        public TempSqlDatabase(string connectionString, string databaseName)
+        public SqlServerTestRun(string connectionString, string databaseName)
         {
             _connectionString = connectionString;
             _databaseName = databaseName;
