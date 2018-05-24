@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DbUpgrader.Definition;
 
-namespace DbUpgrader.Tests
+namespace DbUpgrader.Tests.InMemory
 {
     internal class InMemoryDatabase : IDestinationManager
     {

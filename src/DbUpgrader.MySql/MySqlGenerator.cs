@@ -1,20 +1,19 @@
-using DbUpgrader.Generators;
 using DbUpgrader.Definition;
+using DbUpgrader.Generators;
 
-namespace DbUpgrader.SqlServer
+namespace DbUpgrader.MySql
 {
-	internal class SqlServerSqlGenerator : ISqlGenerator
-	{
+    internal class MySqlGenerator : ISqlGenerator
+    {
         char ISqlGenerator.GetDatabaseObjectEscapeStartChar()
         {
-            return '[';
-        }
-        char ISqlGenerator.GetDatabaseObjectEscapeEndChar()
-        {
-            return ']';
+            return '`';
         }
 
-       
+        char ISqlGenerator.GetDatabaseObjectEscapeEndChar()
+        {
+            return '`';
+        }
 
         string ISqlGenerator.GetFieldDataType(IField field)
         {
@@ -31,5 +30,5 @@ namespace DbUpgrader.SqlServer
             }
             return null;
         }
-	}
+    }
 }

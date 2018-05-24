@@ -5,7 +5,7 @@ using DbUpgrader.Definition;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DbUpgrader.Tests.Integration
+namespace DbUpgrader.Tests
 {
     public class DestinationManagerTests
     {
@@ -18,14 +18,28 @@ namespace DbUpgrader.Tests.Integration
             _output = output;
         }
 
+        public static IEnumerable<object[]> GetTestHelpers()
+        {
+            yield return new object[] { new SqlServer.SqlServerHelper(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;") };
+            yield return new object[] { new InMemory.InMemoryHelper() };
+            yield return new object[] { new MySql.MySqlHelper("Server=localhost;Uid=test;Pwd=test;SslMode=none;") };
+            yield return new object[] { new Sqlite.SqliteHelper("Data Source=MyDatabase.db") };
+        }
+
         [Theory]
         [MemberData(nameof(GetTestHelpers))]
         public void NoDatabase_Create_TableAndFieldExists(IDestinationManagerHelper db)
         {
             using (db.TestRun())
             {
+                var definition = new Database("MyDatabase",
+                        new Table(
+                            "MyTable",
+                            new Field("MyField", FieldType.String, 20)
+                            )
+                        );
                 var upgrader = db.Init(DbUpgrader.Upgrade)
-                                     .FromDefinition(TestData.CreateSimpleDatabaseDefinition())
+                                     .FromDefinition(definition)
                                      .LogToXunit(_output)
                                      .Build();
 
@@ -43,7 +57,12 @@ namespace DbUpgrader.Tests.Integration
         {
             using (db.TestRun())
             {
-                var definition = TestData.CreateSimpleDatabaseDefinition();
+                var definition = new Database("MyDatabase",
+                        new Table(
+                            "MyTable",
+                            new Field("MyField", FieldType.String, 20)
+                            )
+                        );
                 var upgrader = db.Init(DbUpgrader.Upgrade)
                                          .FromDefinition(definition)
                                          .LogToXunit(_output)
@@ -71,7 +90,12 @@ namespace DbUpgrader.Tests.Integration
         {
             using (db.TestRun())
             {
-                var definition = TestData.CreateSimpleDatabaseDefinition();
+                var definition = new Database("MyDatabase",
+                         new Table(
+                             "MyTable",
+                             new Field("MyField", FieldType.String, 20)
+                             )
+                         );
                 var upgrader = db.Init(DbUpgrader.Upgrade)
                                          .FromDefinition(definition)
                                          .LogToXunit(_output)
@@ -91,12 +115,6 @@ namespace DbUpgrader.Tests.Integration
                 db.AssertFieldExists("MyDatabase", "MyTable", "MyField");
                 db.AssertFieldExists("MyDatabase", "MyTable", "Field2");
             }
-        }
-
-        public static IEnumerable<object[]> GetTestHelpers()
-        {
-            yield return new object[] { new SqlServer.SqlServerHelper(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;") };
-            yield return new object[] { new InMemory.InMemoryHelper() };
         }
     }
 }

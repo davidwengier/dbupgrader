@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.Tests", "tests\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.Sqlite", "src\DbUpgrader.Sqlite\DbUpgrader.Sqlite.csproj", "{F2B9AEEA-9961-47A1-9B82-B18D683BF011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.XunitHelpers", "src\DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj", "{C755EC73-7B96-4183-A887-51386C7BB4E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUpgrader.XunitHelpers", "src\DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj", "{C755EC73-7B96-4183-A887-51386C7BB4E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUpgrader.MySql", "src\DbUpgrader.MySql\DbUpgrader.MySql.csproj", "{73DD3CA0-7B7D-44F1-9B84-ACFB881C1EAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{C755EC73-7B96-4183-A887-51386C7BB4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C755EC73-7B96-4183-A887-51386C7BB4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C755EC73-7B96-4183-A887-51386C7BB4E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73DD3CA0-7B7D-44F1-9B84-ACFB881C1EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73DD3CA0-7B7D-44F1-9B84-ACFB881C1EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73DD3CA0-7B7D-44F1-9B84-ACFB881C1EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73DD3CA0-7B7D-44F1-9B84-ACFB881C1EAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

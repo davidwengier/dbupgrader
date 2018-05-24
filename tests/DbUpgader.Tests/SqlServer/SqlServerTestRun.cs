@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace DbUpgrader.Tests.Integration.SqlServer
+namespace DbUpgrader.Tests.SqlServer
 {
     internal class SqlServerTestRun : IDisposable
     {

@@ -16,7 +16,7 @@ namespace DbUpgrader.DatabaseManagers
 
         public override void CreateDatabase(string databaseName)
         {
-            var sql = "CREATE DATABASE [" + databaseName + "]";
+            var sql = "CREATE DATABASE " + databaseName;
             ExecuteNonQuery(sql);
         }
 

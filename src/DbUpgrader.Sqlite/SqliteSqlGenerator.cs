@@ -5,6 +5,17 @@ namespace DbUpgrader.Sqlite
 {
     internal class SqliteSqlGenetator : ISqlGenerator
     {
+        char ISqlGenerator.GetDatabaseObjectEscapeStartChar()
+        {
+            return ' ';
+        }
+        char ISqlGenerator.GetDatabaseObjectEscapeEndChar()
+        {
+            return ' ';
+        }
+
+
+
         string ISqlGenerator.GetFieldDataType(IField field)
         {
             switch (field.Type)

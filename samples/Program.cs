@@ -7,14 +7,14 @@ namespace DbUpgrader.Tests
     {
         public static void Main()
         {
-            string connectionString = @"Server=(localdb)\v11.0;Integrated Security=true;";
-            IDatabase definition = new Database("MyDatabase",
-                                    new Table("MyTable",
-                                        new Field("MyField", FieldType.String, 50)
-                                        )
-                                    );
+            var connectionString = @"Server=(localdb)\v11.0;Integrated Security=true;";
+            var definition = new Database("MyDatabase",
+                                 new Table("MyTable",
+                                     new Field("MyField", FieldType.String, 50)
+                                     )
+                                 );
 
-            Upgrader upgrader = DbUpgrader.Upgrade
+            var upgrader = DbUpgrader.Upgrade
                                           .FromDefinition(definition)
                                           .ToSqlServer(connectionString)
                                           .LogToConsole()

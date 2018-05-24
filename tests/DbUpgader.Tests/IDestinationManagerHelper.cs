@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit.Abstractions;
 
-namespace DbUpgrader.Tests.Integration
+namespace DbUpgrader.Tests
 {
     public interface IDestinationManagerHelper : IXunitSerializable
     {

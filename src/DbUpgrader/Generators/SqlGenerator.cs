@@ -8,7 +8,7 @@ namespace DbUpgrader.Generators
         public static string GenerateCreateTableStatement(ISqlGenerator generator, ITable table)
         {
             var sb = new StringBuilder();
-            sb.Append("CREATE TABLE [" + table.Name + "] (");
+            sb.Append("CREATE TABLE " + generator.GetDatabaseObjectEscapeStartChar() +  table.Name + generator.GetDatabaseObjectEscapeEndChar() + " (");
             var prependComma = false;
             foreach (var field in table.GetFields())
             {
@@ -33,10 +33,10 @@ namespace DbUpgrader.Generators
             return GenerateAlterTableAndFieldStatement(generator, table, field, "ALTER COLUMN");
         }
 
-        private static string GenerateAlterTableAndFieldStatement(ISqlGenerator generator, ITable table, IField field, string operation)
+        public static string GenerateAlterTableAndFieldStatement(ISqlGenerator generator, ITable table, IField field, string operation)
         {
             var sb = new StringBuilder();
-            sb.Append("ALTER TABLE [" + table.Name + "] ");
+            sb.Append("ALTER TABLE " + generator.GetDatabaseObjectEscapeStartChar() + table.Name + generator.GetDatabaseObjectEscapeEndChar() + " ");
             sb.Append(operation);
             sb.Append(' ');
             sb.Append(GenerateFieldProperties(generator, field));
@@ -46,9 +46,9 @@ namespace DbUpgrader.Generators
         public static string GenerateFieldProperties(ISqlGenerator generator, IField field)
         {
             var sb = new StringBuilder();
-            sb.Append('[');
+            sb.Append(generator.GetDatabaseObjectEscapeStartChar());
             sb.Append(field.Name);
-            sb.Append(']');
+            sb.Append(generator.GetDatabaseObjectEscapeEndChar());
             sb.Append(' ');
             sb.Append(generator.GetFieldDataType(field));
             sb.Append(' ');

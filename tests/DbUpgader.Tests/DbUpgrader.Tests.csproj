@@ -17,16 +17,14 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\DbUpgrader.MySql\DbUpgrader.MySql.csproj" />
     <ProjectReference Include="..\..\src\DbUpgrader.XunitHelpers\DbUpgrader.XunitHelpers.csproj" />
     <ProjectReference Include="..\..\src\DbUpgrader.SqlServer\DbUpgrader.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\DbUpgrader\DbUpgrader.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+  <ItemGroup>
     <ProjectReference Include="..\..\src\DbUpgrader.Sqlite\DbUpgrader.Sqlite.csproj" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);Integration\Sqlite\**\*</DefaultItemExcludes>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
