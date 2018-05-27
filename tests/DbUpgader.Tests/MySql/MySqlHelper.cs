@@ -1,9 +1,10 @@
 ﻿using System;
+using MySql.Data.MySqlClient;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.MySql
 {
-    internal class MySqlHelper : IDestinationManagerHelper
+    internal class MySqlHelper : IDestinationManagerTestHelper
     {
         private string _connectionString;
 
@@ -14,6 +15,22 @@ namespace DbUpgrader.Tests.MySql
         public MySqlHelper(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public bool ShouldRun()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public UpgraderBuilder Init(UpgraderBuilder builder)

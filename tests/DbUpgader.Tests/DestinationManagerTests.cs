@@ -18,17 +18,9 @@ namespace DbUpgrader.Tests
             _output = output;
         }
 
-        public static IEnumerable<object[]> GetTestHelpers()
-        {
-            yield return new object[] { new SqlServer.SqlServerHelper(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;") };
-            yield return new object[] { new InMemory.InMemoryHelper() };
-            yield return new object[] { new MySql.MySqlHelper("Server=localhost;Uid=test;Pwd=test;SslMode=none;") };
-            yield return new object[] { new Sqlite.SqliteHelper("Data Source=MyDatabase.db") };
-        }
-
         [Theory]
-        [MemberData(nameof(GetTestHelpers))]
-        public void NoDatabase_Create_TableAndFieldExists(IDestinationManagerHelper db)
+        [MemberData(nameof(TestSources.GetTestSources), MemberType = typeof(TestSources))]
+        public void NoDatabase_Create_TableAndFieldExists(IDestinationManagerTestHelper db)
         {
             using (db.TestRun())
             {
@@ -52,8 +44,8 @@ namespace DbUpgrader.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GetTestHelpers))]
-        public void ExistingDatabase_FieldSizeChanged_Changed(IDestinationManagerHelper db)
+        [MemberData(nameof(TestSources.GetTestSources), MemberType = typeof(TestSources))]
+        public void ExistingDatabase_FieldSizeChanged_Changed(IDestinationManagerTestHelper db)
         {
             using (db.TestRun())
             {
@@ -85,8 +77,8 @@ namespace DbUpgrader.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GetTestHelpers))]
-        public void ExistingDatabase_FieldAdded_NewFieldExists(IDestinationManagerHelper db)
+        [MemberData(nameof(TestSources.GetTestSources), MemberType = typeof(TestSources))]
+        public void ExistingDatabase_FieldAdded_NewFieldExists(IDestinationManagerTestHelper db)
         {
             using (db.TestRun())
             {

@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.Data.Sqlite;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.Sqlite
 {
-    internal class SqliteHelper : IDestinationManagerHelper
+    internal class SqliteHelper : IDestinationManagerTestHelper
     {
         private string _fileName;
 
@@ -16,9 +17,25 @@ namespace DbUpgrader.Tests.Sqlite
             _fileName = fileName;
         }
 
+        public bool ShouldRun()
+        {
+            try
+            {
+                using (var conn = new SqliteConnection("Data Source=" + _fileName))
+                {
+                    conn.Open();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
         public UpgraderBuilder Init(UpgraderBuilder builder)
         {
-            return builder.ToSqlite(_fileName);
+            return builder.ToSqlite("Data Source=" + _fileName);
         }
 
         public IDisposable TestRun()

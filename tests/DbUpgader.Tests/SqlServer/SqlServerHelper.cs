@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Data.SqlClient;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.SqlServer
 {
-    internal class SqlServerHelper : IDestinationManagerHelper
+    internal class SqlServerHelper : IDestinationManagerTestHelper
     {
         private string _connectionString;
 
@@ -14,6 +15,22 @@ namespace DbUpgrader.Tests.SqlServer
         public SqlServerHelper(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public bool ShouldRun()
+        {
+            try
+            {
+                using (var conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public UpgraderBuilder Init(UpgraderBuilder builder)

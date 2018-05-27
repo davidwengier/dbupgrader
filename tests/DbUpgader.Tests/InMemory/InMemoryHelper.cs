@@ -7,12 +7,17 @@ using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.InMemory
 {
-    internal class InMemoryHelper : IDestinationManagerHelper
+    internal class InMemoryHelper : IDestinationManagerTestHelper
     {
         private InMemoryDatabase _database = new InMemoryDatabase();
 
         public InMemoryHelper()
         {
+        }
+
+        public bool ShouldRun()
+        {
+            return true;
         }
 
         public UpgraderBuilder Init(UpgraderBuilder upgrader)
