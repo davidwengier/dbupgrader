@@ -1,4 +1,5 @@
 ﻿using System;
+using DbUpgrader.Definition;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests
@@ -13,7 +14,9 @@ namespace DbUpgrader.Tests
 
         void AssertFieldExists(string databaseName, string tableName, string fieldName);
 
-        void AssertFieldSizeEquals(int size, string databaseName, string tableName, string fieldName);
+        void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size);
+
+        void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType fieldType);
 
         IDisposable TestRun();
     }

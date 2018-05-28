@@ -1,3 +1,4 @@
+using System;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
 
@@ -28,7 +29,7 @@ namespace DbUpgrader.MySql
                     return "VARCHAR(" + field.Size + ")";
                 }
             }
-            return null;
+            throw new Exception("Field type " + field + " is not supported.");
         }
     }
 }

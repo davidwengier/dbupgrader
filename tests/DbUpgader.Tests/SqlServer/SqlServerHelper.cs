@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using DbUpgrader.Definition;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.SqlServer
@@ -45,17 +46,22 @@ namespace DbUpgrader.Tests.SqlServer
 
         public void AssertFieldExists(string databaseName, string tableName, string fieldName)
         {
-            SqlAssert.FieldExists(_connectionString, databaseName, tableName, fieldName);
+            Assert.FieldExists(_connectionString, databaseName, tableName, fieldName);
         }
 
-        public void AssertFieldSizeEquals(int size, string databaseName, string tableName, string fieldName)
+        public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
-            SqlAssert.FieldSizeEquals(size, _connectionString, databaseName, tableName, fieldName);
+            Assert.FieldSizeEquals(size, _connectionString, databaseName, tableName, fieldName);
+        }
+
+        public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
+        {
+            Assert.FieldTypeEquals(type, _connectionString, databaseName, tableName, fieldName);
         }
 
         public void AssertTableExists(string databaseName, string tableName)
         {
-            SqlAssert.TableExists(_connectionString, databaseName, tableName);
+            Assert.TableExists(_connectionString, databaseName, tableName);
         }
 
         public void Serialize(IXunitSerializationInfo info)

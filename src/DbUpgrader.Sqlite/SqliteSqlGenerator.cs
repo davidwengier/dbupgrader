@@ -1,5 +1,6 @@
 using DbUpgrader.Generators;
 using DbUpgrader.Definition;
+using System;
 
 namespace DbUpgrader.Sqlite
 {
@@ -25,7 +26,7 @@ namespace DbUpgrader.Sqlite
                     return "TEXT";
                 }
             }
-            return null;
+            throw new Exception("Field type " + field + " is not supported.");
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
+using DbUpgrader.Definition;
 
 namespace DbUpgrader.Tests.SqlServer
 {
-    internal class SqlAssert
+    internal class Assert
     {
         internal static void TableExists(string connectionString, string databaseName, string tableName)
         {
@@ -22,6 +23,7 @@ namespace DbUpgrader.Tests.SqlServer
                 throw new Exception("Field '" + fieldName + "' doesn't exist in '" + tableName + "' does not exist.");
             }
         }
+
         internal static void FieldSizeEquals(int size, string connectionString, string databaseName, string tableName, string fieldName)
         {
             var sql = "SELECT CHARACTER_MAXIMUM_LENGTH FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
@@ -30,6 +32,25 @@ namespace DbUpgrader.Tests.SqlServer
             {
                 throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not " + size + " characters long, its " + actual);
             }
+        }
+
+        internal static void FieldTypeEquals(FieldType type, string connectionString, string databaseName, string tableName, string fieldName)
+        {
+            var sql = "SELECT DATA_TYPE FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
+            var actual = ExecuteScalar(connectionString, sql, new SqlParameter("tableName", tableName), new SqlParameter("fieldName", fieldName)).ToString();
+            if (type != GetFieldTypeForDataType(actual))
+            {
+                throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not a " + type + ", its " + actual);
+            }
+        }
+
+        private static FieldType GetFieldTypeForDataType(string actual)
+        {
+            if (actual.Equals("varchar", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.String;
+            }
+            return (FieldType)(-1);
         }
 
         private static object ExecuteScalar(string connectionString, string sql, params SqlParameter[] parameters)
@@ -44,7 +65,5 @@ namespace DbUpgrader.Tests.SqlServer
                 return comm.ExecuteScalar();
             }
         }
-
-    
     }
 }

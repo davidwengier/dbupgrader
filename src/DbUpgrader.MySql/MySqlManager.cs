@@ -49,7 +49,7 @@ namespace DbUpgrader
             {
                 return FieldType.String;
             }
-            return default;
+            throw new Exception("Field type " + sourceType + " is not supported.");
         }
 
         public override void AlterField(ITable table, IField field)

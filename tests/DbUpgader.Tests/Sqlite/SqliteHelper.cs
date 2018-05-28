@@ -1,4 +1,5 @@
 ﻿using System;
+using DbUpgrader.Definition;
 using Microsoft.Data.Sqlite;
 using Xunit.Abstractions;
 
@@ -48,9 +49,14 @@ namespace DbUpgrader.Tests.Sqlite
             Assert.FieldExists(_fileName, databaseName, tableName, fieldName);
         }
 
-        public void AssertFieldSizeEquals(int size, string databaseName, string tableName, string fieldName)
+        public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
             Assert.FieldSizeEquals(size, _fileName, databaseName, tableName, fieldName);
+        }
+
+        public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
+        {
+            Assert.FieldTypeEquals(type, _fileName, databaseName, tableName, fieldName);
         }
 
         public void AssertTableExists(string databaseName, string tableName)

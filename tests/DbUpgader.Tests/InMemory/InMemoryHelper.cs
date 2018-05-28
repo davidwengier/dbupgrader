@@ -38,11 +38,18 @@ namespace DbUpgrader.Tests.InMemory
             Assert.NotNull(field);
         }
 
-        public void AssertFieldSizeEquals(int size, string databaseName, string tableName, string fieldName)
+        public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
             var table = GetTable(tableName);
             var field = GetField(table, fieldName);
             Assert.Equal(size, field.Size);
+        }
+
+        public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
+        {
+            var table = GetTable(tableName);
+            var field = GetField(table, fieldName);
+            Assert.Equal(type, field.Type);
         }
 
         public void AssertTableExists(string databaseName, string tableName)

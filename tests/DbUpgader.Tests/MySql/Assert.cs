@@ -1,4 +1,5 @@
 ﻿using System;
+using DbUpgrader.Definition;
 using MySql.Data.MySqlClient;
 
 namespace DbUpgrader.Tests.MySql
@@ -31,6 +32,25 @@ namespace DbUpgrader.Tests.MySql
             {
                 throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not " + size + " characters long, its " + actual);
             }
+        }
+
+        internal static void FieldTypeEquals(FieldType type, string connectionString, string databaseName, string tableName, string fieldName)
+        {
+            var sql = "SELECT DATA_TYPE FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
+            var actual = ExecuteScalar(connectionString, sql, new MySqlParameter("tableName", tableName), new MySqlParameter("fieldName", fieldName)).ToString();
+            if (type != GetFieldTypeForDataType(actual))
+            {
+                throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not a " + type + ", its " + actual);
+            }
+        }
+
+        private static FieldType GetFieldTypeForDataType(string actual)
+        {
+            if (actual.Equals("varchar", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.String;
+            }
+            return (FieldType)(-1);
         }
 
         private static object ExecuteScalar(string connectionString, string sql, params MySqlParameter[] parameters)

@@ -1,4 +1,5 @@
 ﻿using System;
+using DbUpgrader.Definition;
 using MySql.Data.MySqlClient;
 using Xunit.Abstractions;
 
@@ -48,9 +49,14 @@ namespace DbUpgrader.Tests.MySql
             Assert.FieldExists(_connectionString, databaseName, tableName, fieldName);
         }
 
-        public void AssertFieldSizeEquals(int size, string databaseName, string tableName, string fieldName)
+        public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
             Assert.FieldSizeEquals(size, _connectionString, databaseName, tableName, fieldName);
+        }
+
+        public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
+        {
+            Assert.FieldTypeEquals(type, _connectionString, databaseName, tableName, fieldName);
         }
 
         public void AssertTableExists(string databaseName, string tableName)

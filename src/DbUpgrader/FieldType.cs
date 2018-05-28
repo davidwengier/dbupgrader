@@ -2,6 +2,11 @@
 {
     public enum FieldType
     {
-        String
+        String,
+        LongString,
+        Integer,
+        Boolean,
+        Decimal,
+        Binary
     }
 }

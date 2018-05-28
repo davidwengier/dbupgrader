@@ -1,5 +1,6 @@
 using DbUpgrader.Generators;
 using DbUpgrader.Definition;
+using System;
 
 namespace DbUpgrader.SqlServer
 {
@@ -29,7 +30,7 @@ namespace DbUpgrader.SqlServer
                     return "VARCHAR(" + field.Size + ")";
                 }
             }
-            return null;
+            throw new Exception("Field type " + field + " is not supported.");
         }
 	}
 }
