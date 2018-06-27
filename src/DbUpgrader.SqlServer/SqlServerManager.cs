@@ -7,7 +7,7 @@ using DbUpgrader.SqlServer;
 
 namespace DbUpgrader
 {
-    internal class SqlServerManager : AnsiDatabaseManager
+    public class SqlServerManager : AnsiDatabaseManager
     {
         private readonly SqlServerSqlGenerator _generator = new SqlServerSqlGenerator();
 
@@ -44,6 +44,11 @@ namespace DbUpgrader
         }
 
         public override FieldType GetFieldTypeFromSourceType(string sourceType)
+        {
+            return GetFieldType(sourceType);
+        }
+
+        public static FieldType GetFieldType(string sourceType)
         {
             if (sourceType.Equals("varchar", StringComparison.OrdinalIgnoreCase))
             {

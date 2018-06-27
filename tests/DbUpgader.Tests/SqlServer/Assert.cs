@@ -38,19 +38,11 @@ namespace DbUpgrader.Tests.SqlServer
         {
             var sql = "SELECT DATA_TYPE FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
             var actual = ExecuteScalar(connectionString, sql, new SqlParameter("tableName", tableName), new SqlParameter("fieldName", fieldName)).ToString();
-            if (type != GetFieldTypeForDataType(actual))
+            var actualType = MySqlManager.GetFieldType(actual);
+            if (type != actualType)
             {
-                throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not a " + type + ", its " + actual);
+                throw new Exception("Field '" + fieldName + "' in table '" + tableName + "' is not a " + type + ", its " + actual + " (" + actualType + ")");
             }
-        }
-
-        private static FieldType GetFieldTypeForDataType(string actual)
-        {
-            if (actual.Equals("varchar", StringComparison.OrdinalIgnoreCase))
-            {
-                return FieldType.String;
-            }
-            return (FieldType)(-1);
         }
 
         private static object ExecuteScalar(string connectionString, string sql, params SqlParameter[] parameters)

@@ -1,21 +1,20 @@
-using DbUpgrader.Generators;
-using DbUpgrader.Definition;
 using System;
+using DbUpgrader.Definition;
+using DbUpgrader.Generators;
 
 namespace DbUpgrader.SqlServer
 {
-	internal class SqlServerSqlGenerator : ISqlGenerator
-	{
+    internal class SqlServerSqlGenerator : ISqlGenerator
+    {
         char ISqlGenerator.GetDatabaseObjectEscapeStartChar()
         {
             return '[';
         }
+
         char ISqlGenerator.GetDatabaseObjectEscapeEndChar()
         {
             return ']';
         }
-
-       
 
         string ISqlGenerator.GetFieldDataType(IField field)
         {
@@ -29,8 +28,28 @@ namespace DbUpgrader.SqlServer
                 {
                     return "VARCHAR(" + field.Size + ")";
                 }
+                case FieldType.LongString:
+                {
+                    return "TEXT";
+                }
+                case FieldType.Integer:
+                {
+                    return "INT";
+                }
+                case FieldType.Boolean:
+                {
+                    return "BIT";
+                }
+                case FieldType.Decimal:
+                {
+                    return "DECIMAL";
+                }
+                case FieldType.Binary:
+                {
+                    return "BINARY";
+                }
             }
-            throw new Exception("Field type " + field + " is not supported.");
+            throw new Exception("Field type " + field.Type + " is not supported.");
         }
-	}
+    }
 }

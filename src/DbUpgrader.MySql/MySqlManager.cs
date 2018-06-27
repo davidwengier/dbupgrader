@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace DbUpgrader
 {
-    internal class MySqlManager : AnsiDatabaseManager
+    public class MySqlManager : AnsiDatabaseManager
     {
         private readonly MySqlGenerator _generator = new MySqlGenerator();
 

@@ -115,7 +115,7 @@ namespace DbUpgrader.Tests
         {
             using (db.TestRun())
             {
-                var definition = new Database("OneOfEachDatabase",
+                var definition = new Database("MyDatabase",
                         new Table(
                             "OneOfEach",
                             new Field("StringField", FieldType.String, 20),
@@ -133,21 +133,21 @@ namespace DbUpgrader.Tests
 
                 Assert.True(upgrader.Run());
 
-                db.AssertTableExists("OneOfEachDatabase", "OneOfEach");
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "StringField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "StringField", FieldType.String);
-                db.AssertFieldSizeEquals("OneOfEachDatabase", "OneOfEach", "StringField", 20);
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "IntField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "IntField", FieldType.Integer);
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "BoolField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "BoolField", FieldType.Boolean);
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "DecimalField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "DecimalField", FieldType.Decimal);
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "LongStringField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "LongStringField", FieldType.LongString);
-                db.AssertFieldExists("OneOfEachDatabase", "OneOfEach", "BinaryField");
-                db.AssertFieldTypeEquals("OneOfEachDatabase", "OneOfEach", "BinaryField", FieldType.Binary);
-                db.AssertFieldSizeEquals("OneOfEachDatabase", "OneOfEach", "BinaryField", 20);
+                db.AssertTableExists("MyDatabase", "OneOfEach");
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "StringField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "StringField", FieldType.String);
+                db.AssertFieldSizeEquals("MyDatabase", "OneOfEach", "StringField", 20);
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "IntField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "IntField", FieldType.Integer);
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "BoolField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "BoolField", FieldType.Boolean);
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "DecimalField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "DecimalField", FieldType.Decimal);
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "LongStringField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "LongStringField", FieldType.LongString);
+                db.AssertFieldExists("MyDatabase", "OneOfEach", "BinaryField");
+                db.AssertFieldTypeEquals("MyDatabase", "OneOfEach", "BinaryField", FieldType.Binary);
+                db.AssertFieldSizeEquals("MyDatabase", "OneOfEach", "BinaryField", 20);
             }
         }
     }

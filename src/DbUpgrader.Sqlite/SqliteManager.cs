@@ -7,7 +7,7 @@ using DbUpgrader.Sqlite;
 
 namespace DbUpgrader
 {
-    internal class SqliteManager : CommonDatabaseManager
+    public class SqliteManager : CommonDatabaseManager
     {
         private readonly SqliteSqlGenetator _generator = new SqliteSqlGenetator();
 

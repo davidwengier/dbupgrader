@@ -28,8 +28,28 @@ namespace DbUpgrader.MySql
                 {
                     return "VARCHAR(" + field.Size + ")";
                 }
+                case FieldType.LongString:
+                {
+                    return "LONGTEXT";
+                }
+                case FieldType.Integer:
+                {
+                    return "INT";
+                }
+                case FieldType.Boolean:
+                {
+                    return "BOOLEAN";
+                }
+                case FieldType.Decimal:
+                {
+                    return "DECIMAL";
+                }
+                case FieldType.Binary:
+                {
+                    return "BINARY";
+                }
             }
-            throw new Exception("Field type " + field + " is not supported.");
+            throw new Exception("Field type " + field.Type + " is not supported.");
         }
     }
 }

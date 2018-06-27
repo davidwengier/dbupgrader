@@ -26,7 +26,7 @@ namespace DbUpgrader.Sqlite
                     return "TEXT";
                 }
             }
-            throw new Exception("Field type " + field + " is not supported.");
+            throw new Exception("Field type " + field.Type + " is not supported.");
         }
     }
 }

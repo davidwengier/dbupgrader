@@ -1,4 +1,5 @@
-﻿using DbUpgrader.Logging;
+﻿using System;
+using DbUpgrader.Logging;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.XunitHelpers
@@ -15,6 +16,10 @@ namespace DbUpgrader.XunitHelpers
         public void Log(LogLevel level, string message)
         {
             _output.WriteLine(level.ToString() + ": " + message);
+            if (level == LogLevel.Error)
+            {
+                throw new Exception(message);
+            }
         }
     }
 }
