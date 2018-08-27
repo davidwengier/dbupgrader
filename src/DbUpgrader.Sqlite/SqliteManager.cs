@@ -4,6 +4,7 @@ using DbUpgrader.Definition;
 using DbUpgrader.Generators;
 using Microsoft.Data.Sqlite;
 using DbUpgrader.Sqlite;
+using System;
 
 namespace DbUpgrader
 {
@@ -63,6 +64,15 @@ namespace DbUpgrader
         public override void AlterField(ITable table, IField field)
         {
             throw new System.NotImplementedException();
+        }
+
+        public static FieldType GetFieldType(string sourceType)
+        {
+            if (sourceType.Equals("varchar", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.String;
+            }
+            throw new Exception("Field type " + sourceType + " is not supported.");
         }
     }
 }

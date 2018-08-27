@@ -7,7 +7,7 @@ trim_trailing_whitespace = true
 
 dotnet_style_qualification_for_field = false:error
 dotnet_style_qualification_for_property = true:error
-dotnet_style_qualification_for_method = true:error
+dotnet_style_qualification_for_method = false:error
 dotnet_style_qualification_for_event = true:error
 dotnet_style_predefined_type_for_locals_parameters_members = true:error
 dotnet_style_predefined_type_for_member_access = true:error

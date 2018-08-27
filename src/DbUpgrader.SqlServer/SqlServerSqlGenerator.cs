@@ -44,9 +44,13 @@ namespace DbUpgrader.SqlServer
                 {
                     return "DECIMAL";
                 }
+                case FieldType.Binary when field.Size <= 0:
+                {
+                    return "VARBINARY(MAX)";
+                }
                 case FieldType.Binary:
                 {
-                    return "BINARY";
+                    return "VARBINARY(" + field.Size + ")";
                 }
             }
             throw new Exception("Field type " + field.Type + " is not supported.");

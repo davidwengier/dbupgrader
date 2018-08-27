@@ -54,6 +54,26 @@ namespace DbUpgrader
             {
                 return FieldType.String;
             }
+            else if (sourceType.Equals("text", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.LongString;
+            }
+            else if (sourceType.Equals("int", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.Integer;
+            }
+            else if (sourceType.Equals("decimal", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.Decimal;
+            }
+            else if (sourceType.Equals("bit", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.Boolean;
+            }
+            else if (sourceType.Equals("varbinary", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.Binary;
+            }
             throw new Exception("Field type " + sourceType + " is not supported.");
         }
 

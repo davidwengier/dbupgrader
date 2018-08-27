@@ -57,5 +57,14 @@ namespace DbUpgrader
             var sql = SqlGenerator.GenerateAlterTableAndFieldStatement(_generator, table, field, "MODIFY COLUMN");
             ExecuteNonQuery(sql);
         }
+
+        public static FieldType GetFieldType(string sourceType)
+        {
+            if (sourceType.Equals("varchar", StringComparison.OrdinalIgnoreCase))
+            {
+                return FieldType.String;
+            }
+            throw new Exception("Field type " + sourceType + " is not supported.");
+        }
     }
 }
