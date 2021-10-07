@@ -1,6 +1,6 @@
-using DbUpgrader.Generators;
+﻿using System;
 using DbUpgrader.Definition;
-using System;
+using DbUpgrader.Generators;
 
 namespace DbUpgrader.Sqlite
 {
@@ -14,8 +14,6 @@ namespace DbUpgrader.Sqlite
         {
             return ' ';
         }
-
-
 
         string ISqlGenerator.GetFieldDataType(IField field)
         {

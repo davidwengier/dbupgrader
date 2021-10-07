@@ -1,10 +1,9 @@
-﻿using System.Data.Common;
+﻿using System;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
-using Microsoft.Data.Sqlite;
 using DbUpgrader.Sqlite;
-using System;
+using Microsoft.Data.Sqlite;
 
 namespace DbUpgrader
 {

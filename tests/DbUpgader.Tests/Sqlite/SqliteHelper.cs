@@ -22,10 +22,8 @@ namespace DbUpgrader.Tests.Sqlite
         {
             try
             {
-                using (var conn = new SqliteConnection("Data Source=" + _fileName))
-                {
-                    conn.Open();
-                }
+                using var conn = new SqliteConnection("Data Source=" + _fileName);
+                conn.Open();
             }
             catch
             {

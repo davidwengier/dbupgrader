@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using DbUpgrader.Definition;
-using DbUpgrader.Tests.InMemory;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,7 +8,7 @@ namespace DbUpgrader.Tests.InMemory
 {
     internal class InMemoryHelper : IDestinationManagerTestHelper
     {
-        private InMemoryDatabase _database = new InMemoryDatabase();
+        private readonly InMemoryDatabase _database = new();
 
         public InMemoryHelper()
         {

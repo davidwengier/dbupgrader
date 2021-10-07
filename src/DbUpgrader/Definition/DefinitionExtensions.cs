@@ -1,5 +1,4 @@
-﻿using System;
-using DbUpgrader.Definition;
+﻿using DbUpgrader.Definition;
 
 namespace DbUpgrader
 {

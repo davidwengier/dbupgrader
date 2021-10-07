@@ -47,15 +47,13 @@ namespace DbUpgrader.Tests.MySql
 
         private static object ExecuteScalar(string connectionString, string sql, params MySqlParameter[] parameters)
         {
-            using (var conn = new MySqlConnection(connectionString))
-            using (var comm = new MySqlCommand())
-            {
-                conn.Open();
-                comm.Connection = conn;
-                comm.CommandText = sql;
-                comm.Parameters.AddRange(parameters);
-                return comm.ExecuteScalar();
-            }
+            using var conn = new MySqlConnection(connectionString);
+            using var comm = new MySqlCommand();
+            conn.Open();
+            comm.Connection = conn;
+            comm.CommandText = sql;
+            comm.Parameters.AddRange(parameters);
+            return comm.ExecuteScalar();
         }
     }
 }

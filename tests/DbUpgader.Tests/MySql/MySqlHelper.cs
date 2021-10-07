@@ -22,10 +22,8 @@ namespace DbUpgrader.Tests.MySql
         {
             try
             {
-                using (var conn = new MySqlConnection(_connectionString))
-                {
-                    conn.Open();
-                }
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
             }
             catch
             {

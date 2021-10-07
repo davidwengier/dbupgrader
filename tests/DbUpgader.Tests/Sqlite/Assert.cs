@@ -47,15 +47,13 @@ namespace DbUpgrader.Tests.Sqlite
 
         private static object ExecuteScalar(string connectionString, string sql, params SqliteParameter[] parameters)
         {
-            using (var conn = new SqliteConnection(connectionString))
-            using (var comm = new SqliteCommand())
-            {
-                conn.Open();
-                comm.Connection = conn;
-                comm.CommandText = sql;
-                comm.Parameters.AddRange(parameters);
-                return comm.ExecuteScalar();
-            }
+            using var conn = new SqliteConnection(connectionString);
+            using var comm = new SqliteCommand();
+            conn.Open();
+            comm.Connection = conn;
+            comm.CommandText = sql;
+            comm.Parameters.AddRange(parameters);
+            return comm.ExecuteScalar();
         }
     }
 }

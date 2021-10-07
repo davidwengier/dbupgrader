@@ -1,5 +1,4 @@
-﻿using System;
-using DbUpgrader.Logging;
+﻿using DbUpgrader.Logging;
 
 namespace DbUpgrader
 {

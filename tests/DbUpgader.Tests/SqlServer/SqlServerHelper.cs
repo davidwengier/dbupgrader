@@ -22,10 +22,8 @@ namespace DbUpgrader.Tests.SqlServer
         {
             try
             {
-                using (var conn = new SqlConnection(_connectionString))
-                {
-                    conn.Open();
-                }
+                using var conn = new SqlConnection(_connectionString);
+                conn.Open();
             }
             catch
             {

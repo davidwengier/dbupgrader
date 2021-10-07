@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DbUpgrader.Definition
+﻿namespace DbUpgrader.Definition
 {
     public class Field : IField
     {

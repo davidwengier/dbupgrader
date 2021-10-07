@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DbUpgrader
+﻿namespace DbUpgrader
 {
     public static class SqlExtensions
     {

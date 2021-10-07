@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
 

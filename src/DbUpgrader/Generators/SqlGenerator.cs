@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using DbUpgrader.Definition;
 
 namespace DbUpgrader.Generators
@@ -8,7 +8,7 @@ namespace DbUpgrader.Generators
         public static string GenerateCreateTableStatement(ISqlGenerator generator, ITable table)
         {
             var sb = new StringBuilder();
-            sb.Append("CREATE TABLE " + generator.GetDatabaseObjectEscapeStartChar() +  table.Name + generator.GetDatabaseObjectEscapeEndChar() + " (");
+            sb.Append("CREATE TABLE " + generator.GetDatabaseObjectEscapeStartChar() + table.Name + generator.GetDatabaseObjectEscapeEndChar() + " (");
             var prependComma = false;
             foreach (var field in table.GetFields())
             {

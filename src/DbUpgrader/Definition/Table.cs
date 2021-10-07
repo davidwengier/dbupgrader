@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DbUpgrader.Definition
 {
     public class Table : ITable
     {
-        private List<IField> _fields = new List<IField>();
+        private readonly List<IField> _fields = new List<IField>();
 
         public Table(string name, params IField[] fields)
         {
@@ -14,7 +13,7 @@ namespace DbUpgrader.Definition
         }
 
         public string Name { get; }
-            
+
         public void AddField(IField field) => _fields.Add(field);
 
         public IEnumerable<IField> GetFields() => _fields;

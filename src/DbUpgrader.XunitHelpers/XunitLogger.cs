@@ -6,7 +6,7 @@ namespace DbUpgrader.XunitHelpers
 {
     internal class XunitLogger : ILogger
     {
-        private ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output;
 
         public XunitLogger(ITestOutputHelper output)
         {

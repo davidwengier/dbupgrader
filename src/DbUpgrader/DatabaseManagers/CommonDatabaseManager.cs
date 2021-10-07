@@ -8,7 +8,7 @@ namespace DbUpgrader.DatabaseManagers
     /// </summary>
     public abstract class CommonDatabaseManager : IDestinationManager
     {
-        private DbProviderFactory _factory;
+        private readonly DbProviderFactory _factory;
 
         protected DbProviderFactory Factory => _factory;
 

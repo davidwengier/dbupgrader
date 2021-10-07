@@ -7,7 +7,7 @@ namespace DbUpgrader.Tests.InMemory
 {
     internal class InMemoryDatabase : IDestinationManager
     {
-        private Dictionary<string, Table> _tables = new Dictionary<string, Table>(StringComparer.Ordinal);
+        private readonly Dictionary<string, Table> _tables = new(StringComparer.Ordinal);
 
         public Table[] Tables => _tables.Values.ToArray();
 

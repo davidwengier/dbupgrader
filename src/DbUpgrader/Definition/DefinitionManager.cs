@@ -2,7 +2,7 @@
 {
     internal class DefinitionManager : ISourceManager
     {
-        private IDatabase _database;
+        private readonly IDatabase _database;
 
         public DefinitionManager(IDatabase database)
         {

@@ -47,15 +47,13 @@ namespace DbUpgrader.Tests.SqlServer
 
         private static object ExecuteScalar(string connectionString, string sql, params SqlParameter[] parameters)
         {
-            using (var conn = new SqlConnection(connectionString))
-            using (var comm = new SqlCommand())
-            {
-                conn.Open();
-                comm.Connection = conn;
-                comm.CommandText = sql;
-                comm.Parameters.AddRange(parameters);
-                return comm.ExecuteScalar();
-            }
+            using var conn = new SqlConnection(connectionString);
+            using var comm = new SqlCommand();
+            conn.Open();
+            comm.Connection = conn;
+            comm.CommandText = sql;
+            comm.Parameters.AddRange(parameters);
+            return comm.ExecuteScalar();
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DbUpgrader.Definition
 {
     public class Database : IDatabase
     {
-        private List<ITable> _tables = new List<ITable>();
-        private string _databaseName;
+        private readonly List<ITable> _tables = new List<ITable>();
+        private readonly string _databaseName;
 
         public Database(string databaseName, params ITable[] tables)
         {

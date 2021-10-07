@@ -1,5 +1,4 @@
-﻿using System;
-using DbUpgrader.XunitHelpers;
+﻿using DbUpgrader.XunitHelpers;
 using Xunit.Abstractions;
 
 namespace DbUpgrader
