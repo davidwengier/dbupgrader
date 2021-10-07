@@ -1,5 +1,4 @@
-﻿using System;
-using DbUpgrader.Definition;
+﻿using DbUpgrader.Definition;
 
 namespace DbUpgrader.Tests
 {
@@ -21,12 +20,6 @@ namespace DbUpgrader.Tests
                                           .Build();
 
             upgrader.Run();
-
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                Console.WriteLine("Press Enter to continue.");
-                Console.ReadLine();
-            }
         }
     }
 }
