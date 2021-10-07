@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Data.SqlClient;
 using DbUpgrader.Definition;
+using Microsoft.Data.SqlClient;
 using Xunit.Abstractions;
 
 namespace DbUpgrader.Tests.SqlServer

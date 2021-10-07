@@ -6,27 +6,27 @@ namespace DbUpgrader.Tests.Sqlite
 {
     internal class Assert
     {
-        internal static void TableExists(string connectionString, string databaseName, string tableName)
+        internal static void TableExists(string connectionString, string tableName)
         {
-            var sql = "SELECT COUNT(*) FROM [" + databaseName + "].INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName";
+            var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = @tableName";
             if (Convert.ToInt32(ExecuteScalar(connectionString, sql, new SqliteParameter("tableName", tableName))) == 0)
             {
                 throw new Exception("Table '" + tableName + "' does not exist.");
             }
         }
 
-        internal static void FieldExists(string connectionString, string databaseName, string tableName, string fieldName)
+        internal static void FieldExists(string connectionString, string tableName, string fieldName)
         {
-            var sql = "SELECT COUNT(*) FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
+            var sql = "SELECT COUNT(*) AS CNTREC FROM pragma_table_info(@tableName) WHERE name=@fieldName";
             if (Convert.ToInt32(ExecuteScalar(connectionString, sql, new SqliteParameter("tableName", tableName), new SqliteParameter("fieldName", fieldName))) == 0)
             {
                 throw new Exception("Field '" + fieldName + "' doesn't exist in '" + tableName + "' does not exist.");
             }
         }
 
-        internal static void FieldSizeEquals(int size, string connectionString, string databaseName, string tableName, string fieldName)
+        internal static void FieldSizeEquals(int size, string connectionString, string tableName, string fieldName)
         {
-            var sql = "SELECT CHARACTER_MAXIMUM_LENGTH FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
+            var sql = "SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
             var actual = Convert.ToInt32(ExecuteScalar(connectionString, sql, new SqliteParameter("tableName", tableName), new SqliteParameter("fieldName", fieldName)));
             if (size != actual)
             {
@@ -34,9 +34,9 @@ namespace DbUpgrader.Tests.Sqlite
             }
         }
 
-        internal static void FieldTypeEquals(FieldType type, string connectionString, string databaseName, string tableName, string fieldName)
+        internal static void FieldTypeEquals(FieldType type, string connectionString, string tableName, string fieldName)
         {
-            var sql = "SELECT DATA_TYPE FROM [" + databaseName + "].INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
+            var sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @fieldName";
             var actual = ExecuteScalar(connectionString, sql, new SqliteParameter("tableName", tableName), new SqliteParameter("fieldName", fieldName)).ToString();
             var actualType = SqliteManager.GetFieldType(actual);
             if (type != actualType)

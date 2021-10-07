@@ -45,22 +45,22 @@ namespace DbUpgrader.Tests.Sqlite
 
         public void AssertFieldExists(string databaseName, string tableName, string fieldName)
         {
-            Assert.FieldExists(this.ConnectionString, databaseName, tableName, fieldName);
+            Assert.FieldExists(this.ConnectionString, tableName, fieldName);
         }
 
         public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
-            Assert.FieldSizeEquals(size, this.ConnectionString, databaseName, tableName, fieldName);
+            Assert.FieldSizeEquals(size, this.ConnectionString, tableName, fieldName);
         }
 
         public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
         {
-            Assert.FieldTypeEquals(type, this.ConnectionString, databaseName, tableName, fieldName);
+            Assert.FieldTypeEquals(type, this.ConnectionString, tableName, fieldName);
         }
 
         public void AssertTableExists(string databaseName, string tableName)
         {
-            Assert.TableExists(this.ConnectionString, databaseName, tableName);
+            Assert.TableExists(this.ConnectionString, tableName);
         }
 
         public void Serialize(IXunitSerializationInfo info)

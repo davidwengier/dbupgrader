@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Data.SqlClient;
 using DbUpgrader.DatabaseManagers;
 using DbUpgrader.Definition;
 using DbUpgrader.Generators;
 using DbUpgrader.SqlServer;
+using Microsoft.Data.SqlClient;
 
 namespace DbUpgrader
 {

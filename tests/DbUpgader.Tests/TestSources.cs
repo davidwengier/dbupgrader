@@ -8,7 +8,7 @@ namespace DbUpgrader.Tests
         {
             yield return new object[] { new InMemory.InMemoryHelper() };
 
-            var sqlServer = new SqlServer.SqlServerHelper(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;");
+            var sqlServer = new SqlServer.SqlServerHelper(@"Server=(localdb)\v11.0;Integrated Security=true;");
             if (sqlServer.ShouldRun())
             {
                 yield return new object[] { sqlServer };
