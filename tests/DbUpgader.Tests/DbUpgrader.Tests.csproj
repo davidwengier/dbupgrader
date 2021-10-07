@@ -3,12 +3,7 @@
     <Message Text="Building for $(TargetFramework) on $(OS)" Importance="High" />
   </Target>
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(OS)' != 'Unix'">net462;netcoreapp2.0</TargetFrameworks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyName>DbUpgrader.Tests</AssemblyName>
-    <PackageId>DbUpgrader.Tests</PackageId>
-    <WarningsAsErrors />
+    <TargetFrameworks>net6.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
@@ -25,10 +20,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\DbUpgrader.Sqlite\DbUpgrader.Sqlite.csproj" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
-    <LangVersion>7.1</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
-    <LangVersion>7.1</LangVersion>
-  </PropertyGroup>
 </Project>

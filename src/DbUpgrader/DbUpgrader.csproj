@@ -1,17 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3</TargetFrameworks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyName>DbUpgrader</AssemblyName>
-    <PackageId>DbUpgrader</PackageId>
-    <WarningsAsErrors />
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
-    <LangVersion>7.1</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
-    <LangVersion>7.1</LangVersion>
-  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
