@@ -8,6 +8,7 @@ namespace DbUpgrader.Tests.Sqlite
     internal class SqliteHelper : IDestinationManagerTestHelper
     {
         private string _fileName;
+        private string ConnectionString => "Data Source=" + _fileName;
 
         public SqliteHelper()
         {
@@ -22,7 +23,7 @@ namespace DbUpgrader.Tests.Sqlite
         {
             try
             {
-                using var conn = new SqliteConnection("Data Source=" + _fileName);
+                using var conn = new SqliteConnection(this.ConnectionString);
                 conn.Open();
             }
             catch
@@ -34,7 +35,7 @@ namespace DbUpgrader.Tests.Sqlite
 
         public UpgraderBuilder Init(UpgraderBuilder builder)
         {
-            return builder.ToSqlite("Data Source=" + _fileName);
+            return builder.ToSqlite(this.ConnectionString);
         }
 
         public IDisposable TestRun()
@@ -44,22 +45,22 @@ namespace DbUpgrader.Tests.Sqlite
 
         public void AssertFieldExists(string databaseName, string tableName, string fieldName)
         {
-            Assert.FieldExists(_fileName, databaseName, tableName, fieldName);
+            Assert.FieldExists(this.ConnectionString, databaseName, tableName, fieldName);
         }
 
         public void AssertFieldSizeEquals(string databaseName, string tableName, string fieldName, int size)
         {
-            Assert.FieldSizeEquals(size, _fileName, databaseName, tableName, fieldName);
+            Assert.FieldSizeEquals(size, this.ConnectionString, databaseName, tableName, fieldName);
         }
 
         public void AssertFieldTypeEquals(string databaseName, string tableName, string fieldName, FieldType type)
         {
-            Assert.FieldTypeEquals(type, _fileName, databaseName, tableName, fieldName);
+            Assert.FieldTypeEquals(type, this.ConnectionString, databaseName, tableName, fieldName);
         }
 
         public void AssertTableExists(string databaseName, string tableName)
         {
-            Assert.TableExists(_fileName, databaseName, tableName);
+            Assert.TableExists(this.ConnectionString, databaseName, tableName);
         }
 
         public void Serialize(IXunitSerializationInfo info)
